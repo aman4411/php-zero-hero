@@ -15,7 +15,8 @@
         <br>
 
         <div class="col-sm-6">
-            <?php include "getAllUsers.php";
+            <?php include "db_connection.php";
+                getAllUsers();
                 while ($row = mysqli_fetch_assoc($result)) {
             ?>
                 <pre class="alert alert-success">

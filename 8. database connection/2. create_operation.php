@@ -1,32 +1,15 @@
-<?php
+<?php include "db_connection.php";
     if(isset($_POST['submitButton'])){
         $username = $_POST['username'];
         $password = $_POST['password'];
 
         //validating form data
-        if(strlen($username)<6){
-            print "<p class='alert alert-danger'>Username has to be longer than 6 characters</p>";
-        }elseif(strlen($password)<6){
-            print "<p class='alert alert-danger'>Password has to be longer than 6 characters</p>";
+        if(strlen($username)<3){
+            print "<p class='alert alert-danger'>Username has to be longer than 3 characters</p>";
+        }elseif(strlen($password)<3){
+            print "<p class='alert alert-danger'>Password has to be longer than 3 characters</p>";
         }else{
-
-            //make connection to sql database
-            $connection = mysqli_connect('localhost','root','','loginapp');
-
-            if($connection){
-                $query = "INSERT INTO users(username,password) ";
-                $query .= "VALUES('$username','$password')";
-
-                $result = mysqli_query($connection, $query);
-
-                if($result){
-                    print "<p class='alert alert-success'>User Created...</p>";
-                }else{
-                    die('Query Failed' . mysqli_error($connection));
-                }
-            }else{
-                print "<p class='alert alert-danger'>error connecting to database</p>";
-            }
+            createUser($username,$password);
         }     
     }
 ?>

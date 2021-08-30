@@ -1,3 +1,21 @@
+<?php include "db_connection.php";
+   if(isset($_POST['submitButton'])){
+       $id = $_POST['id'];
+       $username = $_POST['username'];
+       $password = $_POST['password'];
+
+       //validating form data
+       if(strlen($username)<3){
+           print "<p class='alert alert-danger'>Username has to be longer than 3 characters</p>";
+       }elseif(strlen($password)<3){
+           print "<p class='alert alert-danger'>Password has to be longer than 3 characters</p>";
+       }else{
+           updateUser($id,$username,$password);
+       }    
+
+   }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,19 +31,14 @@
     <div class="container">
         <h1>Update User</h1>
         <br>
-        <form action="1. login.php" method="post">
+        <form action="4. update_operation.php" method="post">
             <div class="form-group">
                 <label for="id">User Id</label>
                 <select name="id" id="" class="form-select w-50" onchange="bindUser(event.target.value)">
                     <option selected disabled>Select Id</option>
-                    <?php include "getAllUsers.php";
-                        $userArray = [];
-                        while ($row = mysqli_fetch_assoc($result)) {
-                           array_push($userArray,$row);
-                           $id = $row['id'];
-                           echo "<option value='$id'>$id</option>";
-                        }
-                        $json_result = json_encode($userArray);
+                    <?php include "db_connection.php";
+                        getAllUsers();
+                        bindUserId();
                     ?>
                 </select>
             </div>
