@@ -57,3 +57,18 @@ function updateUser($id,$username,$password){
     }
     
 }
+
+function deleteUser($id){
+    global $connection;
+
+    if($connection){
+        $deleteQuery = "DELETE FROM users where id= $id";
+
+        $result = mysqli_query($connection, $deleteQuery) or die('Query Failed' . mysqli_error($connection));
+        if ($result) {
+            print "<p class='alert alert-success'>User Deleted Successfully...</p>";
+        }
+    }else{
+        print "<p class='alert alert-danger'>error connecting to database</p>";
+    }
+}
